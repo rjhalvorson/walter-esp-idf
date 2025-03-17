@@ -61,18 +61,18 @@ uint8_t incomingBuf[256] = { 0 };
 
 char macString[32];
 
-void waitForNetwork()
-{
-  /* Wait for the network to become available */
-  WalterModemNetworkRegState regState = modem.getNetworkRegState();
-  while(!(regState == WALTER_MODEM_NETWORK_REG_REGISTERED_HOME ||
-          regState == WALTER_MODEM_NETWORK_REG_REGISTERED_ROAMING))
+  void waitForNetwork()
   {
-    vTaskDelay(pdMS_TO_TICKS(100));
-    regState = modem.getNetworkRegState();
+    /* Wait for the network to become available */
+    WalterModemNetworkRegState regState = modem.getNetworkRegState();
+    while(!(regState == WALTER_MODEM_NETWORK_REG_REGISTERED_HOME ||
+            regState == WALTER_MODEM_NETWORK_REG_REGISTERED_ROAMING))
+    {
+      vTaskDelay(pdMS_TO_TICKS(100));
+      regState = modem.getNetworkRegState();
+    }
+    ESP_LOGI("mqtt_test", "Connected to the network");
   }
-  ESP_LOGI("mqtt_test", "Connected to the network");
-}
 
 extern "C" void app_main(void)
 {
