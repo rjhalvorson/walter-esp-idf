@@ -18,7 +18,6 @@ WalterModem modem;
  * the MAC address of the Walter this code is running on.
  */
 uint8_t dataBuf[8] = {0};
-char macString[32];
 
 /**
  * @brief Buffer for incoming HTTP response
@@ -48,22 +47,18 @@ void waitForNetwork()
 
 extern "C" void app_main(void)
 {
-    ESP_LOGI("mqtt_test", "Walter modem test v0.0.1");
-
-    /* Get the MAC address for board validation */
-    esp_read_mac(incomingBuf, ESP_MAC_WIFI_STA);
-    sprintf(macString, "walter%02X:%02X:%02X:%02X:%02X:%02X",
-        incomingBuf[0],
-        incomingBuf[1],
-        incomingBuf[2],
-        incomingBuf[3],
-        incomingBuf[4],
-        incomingBuf[5]);
-
-    if(WalterModem::begin(UART_NUM_1)) {
-        ESP_LOGI("mqtt_test", "Modem initialization OK");
-    } else {
-        ESP_LOGI("mqtt_test", "Modem initialization ERROR");
+    ESP_LOGI("http_test","WalterModem test example.");
+    esp_read_mac(dataBuf, ESP_MAC_WIFI_STA);
+    ESP_LOGI("socket_test", "Walter's MAC is: %02X:%02X:%02X:%02X:%02X:%02X",
+             dataBuf[0],
+             dataBuf[1],
+             dataBuf[2],
+             dataBuf[3],
+             dataBuf[4],
+             dataBuf[5]);
+    
+    if(!WalterModem::begin(UART_NUM_1)){
+        ESP_LOGE("http_test","unable to start walterModem!");
         return;
     }
 

@@ -15,5 +15,5 @@ dependencies:
   #   # All dependencies of `main` are public by default.
   #   public: true
   dptechnics/walter-modem:
-    version: "http-rework"
+    version: "*"
     git: "https://github.com/QuickSpot/walter-esp-idf.git"
