@@ -85,7 +85,7 @@ extern "C" void app_main(void)
         return;
     }
 
-    if(!modem.createPDPContext("", WALTER_MODEM_PDP_AUTH_PROTO_PAP)) {
+    if(!modem.createPDPContext("", WALTER_MODEM_PDP_AUTH_PROTO_NONE,"","")) {
         ESP_LOGE("http_test", "Could not create PDP context");
         return;
     }
